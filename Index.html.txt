@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Foreningsdeltagere i Kolding 1905</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Lora", serif;
+            color: #222222;
+            background: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #00549A;
+            color: white;
+            padding: 30px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+
+        header p {
+            margin-top: 8px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 18px;
+            border: 2px solid #00549A;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            background: #F2F2F2;
+            padding: 12px;
+            border-bottom: 2px solid #CCCCCC;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #E6E6E6;
+            font-size: 0.95rem;
+        }
+
+        tr:nth-child(even) td {
+            background: #FAFAFA;
+        }
+
+        tr:hover td {
+            background: #F0F6FB;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px 40px;
+            background: #F5F5F5;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Foreningsdeltagere i Kolding (1905)</h1>
+    <p>Søg i medlemmer af lokale foreninger baseret på arkivmateriale</p>
+</header>
+
+<main>
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Søg på forening, navn eller adresse …">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Forening</th>
+                <th>Navn</th>
+                <th>Adresse</th>
+                <th>Stilling</th>
+                <th>Fødselsdato</th>
+            </tr>
+        </thead>
+        <tbody id="results"></tbody>
+    </table>
+</main>
+
+<footer>
+    Data baseret på historiske arkivalier – Kolding 1905
+</footer>
+
+<script>
+let data = [];
+
+// HENT JSON
+fetch("data.json")
+    .then(response => response.json())
+    .then(json => {
+        data = json;
+    });
+
+// SØG
+document.getElementById("searchInput").addEventListener("input", function () {
+    const query = this.value.toLowerCase();
+
+    const filtered = data.filter(p =>
+        p.forening.toLowerCase().includes(query) ||
+        p.navn.toLowerCase().includes(query) ||
+        p.adresse.toLowerCase().includes(query)
+    );
+
+    render(filtered);
+});
+
+function render(results) {
+    const tbody = document.getElementById("results");
+    tbody.innerHTML = "";
+
+    results.forEach(p => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${p.forening}</td>
+            <td>${p.navn}</td>
+            <td>${p.adresse}</td>
+            <td>${p.stilling}</td>
+            <td>${p.fodselsdato}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+</script>
+
+</body>
+</html>
+
