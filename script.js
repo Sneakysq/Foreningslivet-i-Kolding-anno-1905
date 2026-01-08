@@ -4,9 +4,10 @@ let data = [];
 fetch("data.json")
     .then(response => response.json())
     .then(json => {
-        data = json;
-        render(data); // 👈 VIS ALLE FRA START
-    })
+    data = json;
+    console.log("Antal poster:", data.length);
+    render(data);
+});
     .catch(err => console.error("Kunne ikke indlæse data.json", err));
 
 // Søgning
@@ -38,5 +39,6 @@ function render(results) {
         tbody.appendChild(row);
     });
 }
+
 
 
