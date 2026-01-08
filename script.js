@@ -5,18 +5,19 @@ fetch("data.json")
     .then(response => response.json())
     .then(json => {
         data = json;
+        render(data); // 👈 VIS ALLE FRA START
     })
-    .catch(err => console.error("Fejl ved indlæsning af data.json:", err));
+    .catch(err => console.error("Kunne ikke indlæse data.json", err));
 
 // Søgning
 document.getElementById("searchInput").addEventListener("input", function () {
     const query = this.value.toLowerCase();
 
-    const filtered = data.filter(p =>
-        p.forening.toLowerCase().includes(query) ||
-        p.navn.toLowerCase().includes(query) ||
-        p.adresse.toLowerCase().includes(query)
-    );
+   const filtered = data.filter(p =>
+    (p.forening || "").toLowerCase().includes(query) ||
+    (p.navn || "").toLowerCase().includes(query) ||
+    (p.adresse || "").toLowerCase().includes(query)
+);
 
     render(filtered);
 });
@@ -37,4 +38,5 @@ function render(results) {
         tbody.appendChild(row);
     });
 }
+
 
