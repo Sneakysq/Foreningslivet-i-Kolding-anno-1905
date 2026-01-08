@@ -24,6 +24,7 @@ document.getElementById("searchInput").addEventListener("input", function () {
     const filtered = data.filter(p =>
         (p.Forening || "").toLowerCase().includes(query) ||
         (p.Navn || "").toLowerCase().includes(query) ||
+        (p.Stilling || "").toLowerCase().includes(query) ||
         (p.Adresse || "").toLowerCase().includes(query)
     );
 
@@ -49,3 +50,4 @@ function render(results) {
         tbody.appendChild(row);
     });
 }
+
