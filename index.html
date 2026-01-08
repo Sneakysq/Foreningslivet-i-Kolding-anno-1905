@@ -115,14 +115,6 @@
 </footer>
 
 <script>
-let data = [];
-
-// HENT JSON
-fetch("data.json")
-    .then(response => response.json())
-    .then(json => {
-        data = json;
-    });
 
 // SØG
 document.getElementById("searchInput").addEventListener("input", function () {
@@ -155,6 +147,9 @@ function render(results) {
 }
 </script>
 
+<script src="script.js"></script>
+   
 </body>
 </html>
+
 
