@@ -35,12 +35,11 @@ function render(results) {
     <td>${p.Adresse}</td>
     <td>${p.Stilling}</td>
     <td>${p.Fødselsdato}</td>
-`;
-
         `;
         tbody.appendChild(row);
     });
 }
+
 
 
 
