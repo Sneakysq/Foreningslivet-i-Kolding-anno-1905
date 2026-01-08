@@ -4,10 +4,10 @@ let data = [];
 fetch("data.json")
     .then(response => response.json())
     .then(json => {
-    data = json;
-    console.log("Antal poster:", data.length);
-    render(data);
-});
+        data = json;
+        console.log("Antal poster:", data.length);
+        render(data);
+    })
     .catch(err => console.error("Kunne ikke indlæse data.json", err));
 
 // Søgning
@@ -29,16 +29,19 @@ function render(results) {
 
     results.forEach(p => {
         const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${p.forening}</td>
-            <td>${p.navn}</td>
-            <td>${p.adresse}</td>
-            <td>${p.stilling}</td>
-            <td>${p.fodselsdato}</td>
+       row.innerHTML = `
+    <td>${p.Forening}</td>
+    <td>${p.Navn}</td>
+    <td>${p.Adresse}</td>
+    <td>${p.Stilling}</td>
+    <td>${p.Fødselsdato}</td>
+`;
+
         `;
         tbody.appendChild(row);
     });
 }
+
 
 
 
